@@ -60,14 +60,17 @@ const data = {
     .attr("data-id", (d)=>{return d.data.name;});
   
   // Create lines for the links
+  const linktest01 = d3.linkVertical()
+  .x(function(d) { return d.x; })
+  .y(function(d) { return d.y; });
+
   svg
     .selectAll("path")
+    // .data(links)
     .data(links)
     .enter()
     .append("path")
-    .attr("d", (d) => {
-      return `M${d.source.x},${d.source.y} L${d.target.x},${d.target.y}`;
-    });
+    .attr("d", linktest01);
   
   // Add labels to the nodes
   svg
@@ -120,6 +123,10 @@ setTimeout(()=>{
       .attr("data-id", (d)=>{return d.data.name;});
 
   //LINKS
+  const linktest01 = d3.linkVertical()
+  .x(function(d) { return d.x; })
+  .y(function(d) { return d.y; });
+
   svg.selectAll("path").remove();
   svg
     .selectAll("path")
@@ -128,7 +135,8 @@ setTimeout(()=>{
     .append("path")
       .attr("d", (d) => {
         return `M${d.source.x},${d.source.y} L${d.target.x},${d.target.y}`;
-      });    
+      })
+    .attr("d", linktest01);    
 
   //TEXT
   svg.selectAll("text").remove();
@@ -182,6 +190,9 @@ setTimeout(()=>{
       .attr("r", 10)
       .attr("data-id", (d)=>{return d.data.name;});
 
+  const linktest01 = d3.linkVertical()
+  .x(function(d) { return d.x; })
+  .y(function(d) { return d.y; });
   //LINKS
   svg.selectAll("path").remove();
   svg
@@ -191,7 +202,8 @@ setTimeout(()=>{
     .append("path")
       .attr("d", (d) => {
         return `M${d.source.x},${d.source.y} L${d.target.x},${d.target.y}`;
-      });    
+      })
+    .attr("d", linktest01);    
 
   //TEXT
   svg.selectAll("text").remove();
@@ -229,7 +241,6 @@ setTimeout(()=>{
     .attr("cx", (d) => d.x)
     .attr("cy", (d) => d.y);  
 
-    //svg.selectAll("circle").remove();
     svg
     .selectAll("circle")
     .data(root.descendants())
@@ -247,6 +258,9 @@ setTimeout(()=>{
       .attr("data-id", (d)=>{return d.data.name;});
 
   //LINKS
+  const linktest01 = d3.linkVertical()
+  .x(function(d) { return d.x; })
+  .y(function(d) { return d.y; });  
   svg.selectAll("path").remove();
   svg
     .selectAll("path")
@@ -255,7 +269,8 @@ setTimeout(()=>{
     .append("path")
       .attr("d", (d) => {
         return `M${d.source.x},${d.source.y} L${d.target.x},${d.target.y}`;
-      });    
+      })
+    .attr("d", linktest01);;    
 
   //TEXT
   svg.selectAll("text").remove();
