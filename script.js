@@ -3,7 +3,8 @@
 //https://www.youtube.com/watch?v=AYPTVwRaYiI
 //https://www.youtube.com/watch?v=gKl7KJSwSQw
 //https://www.youtube.com/watch?v=PNzbk0M_woQ
-
+//---- How to and Bexier Curve links --------
+//https://stackoverflow.com/questions/55431818/change-d3-force-layout-link-style-to-match-d3-tree-look
 
 
 // Define the data in a hierarchical format
