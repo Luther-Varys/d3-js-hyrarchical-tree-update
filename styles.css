@@ -1,0 +1,18 @@
+circle {
+    fill: #3498db;
+    stroke: #2980b9;
+    stroke-width: 2px;
+  }
+  
+  path {
+    fill: none;
+    stroke: #34495e;
+    stroke-width: 2px;
+  }
+  
+  text {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    text-anchor: middle;
+  }
+  
