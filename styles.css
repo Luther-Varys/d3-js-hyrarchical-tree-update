@@ -2,6 +2,7 @@ circle {
     fill: #3498db;
     stroke: #2980b9;
     stroke-width: 2px;
+    z-index: 1; /* Set a higher z-index to draw circles above links */
   }
   
   path {
@@ -15,4 +16,3 @@ circle {
     font-size: 12px;
     text-anchor: middle;
   }
-  
