@@ -59,6 +59,18 @@ const data = {
   const nodeContainer = svg.append("g");
 
 
+  function toggleSelection(d) {
+    let isSelected = $(d.srcElement).hasClass("selected");
+
+    if(isSelected === true){
+      $("circle").removeClass("selected");
+    }
+    else{
+      $("circle").removeClass("selected");
+      $(d.srcElement).addClass("selected")
+    }
+  }
+
 
   // Create nodes (circles) for the tree
   const nodes = nodeContainer
@@ -74,7 +86,9 @@ const data = {
     .attr("cy", (d) => {return d.x;})
     .attr("r", 10)
     .on("click", clicked)
+    .on("click", toggleSelection)
     .attr("data-id", (d)=>{return d.data.name;})
+    .classed("circle-node", true)
     // .style("z-index", 10); // Set a higher z-index for the circles
   
   // Create lines for the links
@@ -139,7 +153,9 @@ setTimeout(()=>{
       .attr("cy", (d) => {return d.x;})
       .attr("r", 10)
       .on("click", clicked)
-      .attr("data-id", (d)=>{return d.data.name;});
+      .on("click", toggleSelection)
+      .attr("data-id", (d)=>{return d.data.name;})
+      .classed("circle-node", true);
 
   //LINKS
   const linktest01 = d3.linkHorizontal()
@@ -205,9 +221,11 @@ setTimeout(()=>{
       })
       .attr("class", "wpnode")
       .on("click", clicked)
+      .on("click", toggleSelection)
       .attr("cy", (d) => {return d.x;})
       .attr("r", 10)
-      .attr("data-id", (d)=>{return d.data.name;});
+      .attr("data-id", (d)=>{return d.data.name;})
+      .classed("circle-node", true);
 
   const linktest01 = d3.linkHorizontal()
   .x(function(d) { return d.y; })
@@ -274,8 +292,10 @@ setTimeout(()=>{
       .attr("r", 10)
       .attr("class", "wpnode")
       .on("click", clicked)
+      .on("click", toggleSelection)
       // .style("z-index", 10)
-      .attr("data-id", (d)=>{return d.data.name;});
+      .attr("data-id", (d)=>{return d.data.name;})
+      .classed("circle-node", true);
 
   //LINKS
   const linktest01 = d3.linkHorizontal()

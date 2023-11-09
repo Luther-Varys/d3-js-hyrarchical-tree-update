@@ -16,3 +16,21 @@ circle {
     font-size: 12px;
     text-anchor: middle;
   }
+
+
+  .circle-node {
+    cursor: pointer;
+  }
+  
+  .circle-node:hover {
+    fill: #e74c3c; /* Change the fill color on hover */
+  }
+
+  .selected-node {
+    stroke: #e74c3c;
+    stroke-width: 2px;
+  }
+
+  .selected {
+    fill: yellow;
+  }
