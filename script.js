@@ -29,6 +29,8 @@ const data = {
     ],
   };
   
+
+  
   // Define dimensions of the SVG container
   // const width = 800;
   // const height = 400;
@@ -111,76 +113,18 @@ const data = {
 //ENTER
 //////////////////////////
 setTimeout(()=>{
-  // alert("Hello worldd");
   console.log("Hello world 1.");
 
-  // data.children[0].children.push({ name: "Child 3" });
   data.children[0].children.push({ name: "Child 3" });
   data.children.push({ name: "Child 4" });
   data.children.push({ name: "Child 5" });
   data.children.push({ name: "Child 6" });
 
-  const root = d3.hierarchy(data);
-  tree(root);
-  
-  //NODES
-  nodes
-    .data(root.descendants())
-    .attr("cx", (d) => d.y)
-    .attr("cy", (d) => d.x);  
-
-    nodeContainer
-    .selectAll("circle")
-    .data(root.descendants())
-    .enter()
-    .append("circle")
-      .attr("cx", (d) => {
-        var resp = d.y;
-        return resp;
-      })
-      .attr("class", "wpnode")
-      .attr("cy", (d) => {return d.x;})
-      .attr("r", 10)
-      .attr("data-id", (d)=>{return d.data.name;})
-      .classed("circle-node", true)
-      .on("click", function(e, d){
-        clicked(e, d);
-        toggleSelection(e);
-      });
-
-  //LINKS
-  const linktest01 = d3.linkHorizontal()
-  .x(function(d) { return d.y; })
-  .y(function(d) { return d.x; });
-
-  linkContainer.selectAll("path").remove();
-  linkContainer
-    .selectAll("path")
-    .data(root.links())
-    .enter()
-    .append("path")
-      .attr("d", (d) => {
-        return `M${d.source.x},${d.source.y} L${d.target.x},${d.target.y}`;
-      })
-    .attr("d", linktest01);    
-
-  //TEXT
-  nodeContainer.selectAll("text").remove();
-  nodeContainer
-    .selectAll("text")
-    .data(root.descendants())
-    .enter()
-    .append("text")
-      .text((d) => d.data.name)
-      .attr("x", (d) => d.y)
-      .attr("y", (d) => d.x - 20)
-      .attr("text-anchor", "middle");
+  TreeAdd(data)
 
 
 
-
-}, 2000);
-
+}, 3000);
 
 //////////////////////////
 //EXIT
@@ -191,7 +135,95 @@ setTimeout(()=>{
   let index = 1;
   data.children.splice(index, 1);
 
-  const root = d3.hierarchy(data);
+  TreeExit(data);
+
+
+}, 6000);
+
+//////////////////////////
+//UPDATE
+//////////////////////////
+setTimeout(()=>{
+  console.log("Hello world 3.");
+  let index = 1;
+  let newItem = { name: "Child XXX" }
+  data.children[index] = newItem;
+
+  TreeUpdate(data);
+
+}, 9000);
+
+
+
+
+
+
+
+
+
+
+function TreeAdd(dataNodes){  
+    const root = d3.hierarchy(dataNodes);
+    tree(root);
+    
+    //NODES
+    nodes
+      .data(root.descendants())
+      .attr("cx", (d) => d.y)
+      .attr("cy", (d) => d.x);  
+  
+      nodeContainer
+      .selectAll("circle")
+      .data(root.descendants())
+      .enter()
+      .append("circle")
+        .attr("cx", (d) => {
+          var resp = d.y;
+          return resp;
+        })
+        .attr("class", "wpnode")
+        .attr("cy", (d) => {return d.x;})
+        .attr("r", 10)
+        .attr("data-id", (d)=>{return d.data.name;})
+        .classed("circle-node", true)
+        .on("click", function(e, d){
+          clicked(e, d);
+          toggleSelection(e);
+        });
+  
+    //LINKS
+    const linktest01 = d3.linkHorizontal()
+    .x(function(d) { return d.y; })
+    .y(function(d) { return d.x; });
+  
+    linkContainer.selectAll("path").remove();
+    linkContainer
+      .selectAll("path")
+      .data(root.links())
+      .enter()
+      .append("path")
+        .attr("d", (d) => {
+          return `M${d.source.x},${d.source.y} L${d.target.x},${d.target.y}`;
+        })
+      .attr("d", linktest01);    
+  
+    //TEXT
+    nodeContainer.selectAll("text").remove();
+    nodeContainer
+      .selectAll("text")
+      .data(root.descendants())
+      .enter()
+      .append("text")
+        .text((d) => d.data.name)
+        .attr("x", (d) => d.y)
+        .attr("y", (d) => d.x - 20)
+        .attr("text-anchor", "middle");
+}
+
+function TreeExit(dataNodes){
+
+
+  const root = d3.hierarchy(dataNodes);
   tree(root);
 
   //NODES
@@ -246,23 +278,10 @@ setTimeout(()=>{
       .attr("x", (d) => d.y)
       .attr("y", (d) => d.x - 20) 
       .attr("text-anchor", "middle");
+}
 
-
-}, 4000);
-
-
-
-
-//////////////////////////
-//UPDATE
-//////////////////////////
-setTimeout(()=>{
-  console.log("Hello world 3.");
-  let index = 1;
-  let newItem = { name: "Child XXX" }
-  data.children[index] = newItem;
-
-  const root = d3.hierarchy(data);
+function TreeUpdate(dataNodes){
+  const root = d3.hierarchy(dataNodes);
   tree(root);
 
   //NODES
@@ -318,15 +337,22 @@ setTimeout(()=>{
       .attr("x", (d) => d.y)
       .attr("y", (d) => d.x - 20)
       .attr("text-anchor", "middle");  
+}
 
-}, 6000);
+
+
+
+
+
+
+
+
 
 $(".wpnode").click(function(e){
   //your logic on click
   console.log("clicked wpnode");
   console.log(e);
 })
-
 
 function clicked(e, d) {
   console.log("ON clicked");
