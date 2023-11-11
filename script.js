@@ -78,6 +78,7 @@ const nodes = nodeContainer
   })
   .attr("data-id", (d)=>{return d.data.name;})
   .classed("circle-node", true)
+  // .attr('transform', d => `translate(${d.x},${d.y})`)
   // .style("z-index", 10); // Set a higher z-index for the circles
 
 // Create lines for the links
@@ -122,7 +123,7 @@ setTimeout(()=>{
 
 
 
-}, 3000);
+}, 3000000);
 
 //////////////////////////
 //EXIT
@@ -136,7 +137,7 @@ setTimeout(()=>{
   TreeExit(data);
 
 
-}, 6000);
+}, 6000000);
 
 //////////////////////////
 //UPDATE
@@ -149,7 +150,7 @@ setTimeout(()=>{
 
   TreeUpdate(data);
 
-}, 9000);
+}, 9000000);
 
 
 
@@ -466,3 +467,18 @@ function traverseAndPrint(node, depth = 0) {
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
+
+
+
+const zoom = d3.zoom().on("zoom", function (event) {
+  svg.attr("transform", event.transform);
+});
+
+function zoomIn() {
+  svg.transition().duration(500).call(zoom.scaleBy, 1.2);
+}
+
+function zoomOut() {
+  svg.transition().duration(500).call(zoom.scaleBy, 0.8);
+}  
+
