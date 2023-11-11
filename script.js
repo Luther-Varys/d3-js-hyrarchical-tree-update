@@ -59,19 +59,6 @@ const data = {
   const nodeContainer = svg.append("g");
 
 
-  function toggleSelection(d) {
-    let isSelected = $(d.srcElement).hasClass("selected");
-
-    if(isSelected === true){
-      $("circle").removeClass("selected");
-    }
-    else{
-      $("circle").removeClass("selected");
-      $(d.srcElement).addClass("selected")
-    }
-  }
-
-
   // Create nodes (circles) for the tree
   const nodes = nodeContainer
     .selectAll("circle")
@@ -85,8 +72,10 @@ const data = {
     .attr("class", "wpnode")
     .attr("cy", (d) => {return d.x;})
     .attr("r", 10)
-    .on("click", clicked)
-    .on("click", toggleSelection)
+    .on("click", function(e, d){
+      clicked(e, d);
+      toggleSelection(e);
+    })
     .attr("data-id", (d)=>{return d.data.name;})
     .classed("circle-node", true)
     // .style("z-index", 10); // Set a higher z-index for the circles
@@ -152,10 +141,12 @@ setTimeout(()=>{
       .attr("class", "wpnode")
       .attr("cy", (d) => {return d.x;})
       .attr("r", 10)
-      .on("click", clicked)
-      .on("click", toggleSelection)
       .attr("data-id", (d)=>{return d.data.name;})
-      .classed("circle-node", true);
+      .classed("circle-node", true)
+      .on("click", function(e, d){
+        clicked(e, d);
+        toggleSelection(e);
+      });
 
   //LINKS
   const linktest01 = d3.linkHorizontal()
@@ -220,12 +211,14 @@ setTimeout(()=>{
         return resp;
       })
       .attr("class", "wpnode")
-      .on("click", clicked)
-      .on("click", toggleSelection)
       .attr("cy", (d) => {return d.x;})
       .attr("r", 10)
       .attr("data-id", (d)=>{return d.data.name;})
-      .classed("circle-node", true);
+      .classed("circle-node", true)
+      .on("click", function(e, d){
+        clicked(e, d);
+        toggleSelection(e);
+      })      
 
   const linktest01 = d3.linkHorizontal()
   .x(function(d) { return d.y; })
@@ -291,8 +284,10 @@ setTimeout(()=>{
       .attr("cy", (d) => {return d.x;})
       .attr("r", 10)
       .attr("class", "wpnode")
-      .on("click", clicked)
-      .on("click", toggleSelection)
+      .on("click", function(e, d){
+        clicked(e, d);
+        toggleSelection(e);
+      })
       // .style("z-index", 10)
       .attr("data-id", (d)=>{return d.data.name;})
       .classed("circle-node", true);
@@ -337,4 +332,18 @@ function clicked(e, d) {
   console.log("ON clicked");
   console.log(e);
   console.log(d);
+
+  $(".selected-node-nmae").text(d.data.name);
+}
+
+function toggleSelection(e) {
+  let isSelected = $(e.srcElement).hasClass("selected");
+
+  if(isSelected === true){
+    $("circle").removeClass("selected");
+  }
+  else{
+    $("circle").removeClass("selected");
+    $(e.srcElement).addClass("selected")
+  }
 }
